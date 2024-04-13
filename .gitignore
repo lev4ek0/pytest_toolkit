@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+setup.py
+.pytest_cache/
+
+htmlcov
+dw d
+dist
+build
+safe_evaluation.egg-info
+.idea
+
+tests/.coverage
+example.log
+main.py
+pypirc
+screenshot.png
+screenshot1.png
+safe_evaluation/.coverage
+.coverage
+pytest_toolkit.egg-info/
