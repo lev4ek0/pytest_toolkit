@@ -28,6 +28,14 @@ pytest_toolkit - is an useful utils for testing applications
         response = client.get(url)
         assert get_diff(result_dict=response.json()) == {}
     ```
+    OR
+    ```
+    from pytest_toolkit import get_file_json
+
+    def test():
+        response = client.get(url)
+        assert get_file_json() == response.json()
+    ```
 3. Static files search
     ```
     1. You need to create static directory in tests/
@@ -36,6 +44,15 @@ pytest_toolkit - is an useful utils for testing applications
     Library will automatically find a file for get_diff function
     3. If you don't have directory "a" in static files, library will try
     to find file "b.json" in "default" directory first
+
+    If you don't want compare responses manually, you can use get_file_json function:
+    ```
+    ```
+    from pytest_toolkit import get_file_json
+
+    def test():
+        response = client.get(url)
+        assert get_file_json() == {"test": "test"}
     ```
 4. DOESNT_MATTER
     ```

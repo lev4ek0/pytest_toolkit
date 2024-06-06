@@ -127,6 +127,17 @@ def _compare_func(x: Any, y: Any, level=None) -> bool:
         raise CannotCompare()
 
 
+def get_file_json(*, filename: str | None = None):
+    caller_name = inspect.currentframe().f_back.f_code.co_name.replace("test_", "")
+    caller_filename = (
+        inspect.stack()[1]
+        .filename.split(os.path.sep)[-1]
+        .replace(".py", "")
+        .replace("test_", "")
+    )
+    return _get_json(filename, caller_name, caller_filename)
+
+
 def get_diff(*, result_dict: dict, filename: str | None = None) -> bool:
     caller_name = inspect.currentframe().f_back.f_code.co_name.replace("test_", "")
     caller_filename = (
