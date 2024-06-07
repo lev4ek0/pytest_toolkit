@@ -1,3 +1,4 @@
+from functools import lru_cache
 import inspect
 import json
 import os
@@ -37,6 +38,7 @@ def _priority_key(
     return wrapper
 
 
+@lru_cache
 def _get_all_files_in_directory(directory: str) -> list[str]:
     all_files = []
 
