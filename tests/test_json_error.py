@@ -1,9 +1,10 @@
 import importlib
+
 import pytest
+from deepdiff.helper import CannotCompare
 
 from pytest_toolkit import get_diff
 from pytest_toolkit.errors import FileDoesNotExist
-from deepdiff.helper import CannotCompare
 
 
 def test_file_not_exist(caplog):
@@ -12,8 +13,11 @@ def test_file_not_exist(caplog):
     """
     with pytest.raises(FileDoesNotExist):
         get_diff(result_dict=None)
-    
-    assert 'Файл file_not_exist.json не был найден в директории tests/static' in caplog.text
+
+    assert (
+        "Файл file_not_exist.json не был найден в директории tests/static"
+        in caplog.text
+    )
 
 
 def test_filename_not_exist(caplog):
@@ -23,7 +27,7 @@ def test_filename_not_exist(caplog):
     with pytest.raises(FileDoesNotExist):
         get_diff(result_dict=None, filename="not_exist.json")
 
-    assert 'Файл not_exist.json не был найден в директории tests/static' in caplog.text
+    assert "Файл not_exist.json не был найден в директории tests/static" in caplog.text
 
 
 def test_no_compare():
@@ -37,14 +41,15 @@ def test_no_compare_deeper():
 
 
 def test_no_gitignore(caplog):
-    from pytest_toolkit import configure
     import os
 
-    old_filename = '.testignore'
-    new_filename = '.testignore2'
+    from pytest_toolkit import configure
+
+    old_filename = ".testignore"
+    new_filename = ".testignore2"
 
     os.rename(old_filename, new_filename)
     importlib.reload(configure)
     os.rename(new_filename, old_filename)
 
-    assert 'Файл .testignore не найден' in caplog.text
+    assert "Файл .testignore не найден" in caplog.text

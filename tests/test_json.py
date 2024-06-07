@@ -7,7 +7,8 @@ def test_correct_comparasion_diff():
     """
     assert (
         get_diff(
-            result_dict={"example1": "example1"}, filename="correct_comparasion_diff.json"
+            result_dict={"example1": "example1"},
+            filename="correct_comparasion_diff.json",
         )
         == {}
     )
@@ -26,7 +27,9 @@ def test_correct_comparasion_file():
     """
     Название файла есть, поэтому ищем файл по названию. Такой файл один.
     """
-    assert get_file_json(filename="correct_comparasion_diff.json") == {"example1": "example1"}
+    assert get_file_json(filename="correct_comparasion_diff.json") == {
+        "example1": "example1"
+    }
 
 
 def test_filename_search_file():

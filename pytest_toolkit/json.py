@@ -26,10 +26,12 @@ def _priority_key(
             points += 128
         if string.endswith(caller_name):
             points += 64
-        if caller_filename in string[:-5]:
+        if caller_name[:-5] + os.path.sep in string:
             points += 32
-        if "default" in string:
+        if caller_filename in string[:-5]:
             points += 16
+        if "default" in string:
+            points += 8
         return points
 
     return wrapper
@@ -100,7 +102,9 @@ def _find_diff(diff: dict) -> dict:
         _add_diff_extra(diff_change_values_or_type, diff_output, None, VALUES_OR_TYPE)
         _add_diff_extra(diff, diff_output, "dictionary_item_removed", DICT_ITEM_REMOVED)
         _add_diff_extra(diff, diff_output, "dictionary_item_added", DICT_ITEM_ADDED)
-        _add_diff_extra(diff, diff_output, "iterable_item_removed", ITERABLE_ITEM_REMOVED)
+        _add_diff_extra(
+            diff, diff_output, "iterable_item_removed", ITERABLE_ITEM_REMOVED
+        )
         _add_diff_extra(diff, diff_output, "iterable_item_added", ITERABLE_ITEM_ADDED)
 
         """
@@ -109,7 +113,7 @@ def _find_diff(diff: dict) -> dict:
         _add_diff_extra(diff, diff_change, "set_item_removed", SET_ITEM_REMOVED)
         _add_diff_extra(diff, diff_change, "set_item_added", SET_ITEM_ADDED)
         """
-    
+
     except Exception:
         raise CannotCompare()
 
